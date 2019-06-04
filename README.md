@@ -9,3 +9,10 @@ Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un conten
 ## PASO 1 
 
 >**docker-compose up -d**
+
+Lo que realizará docker compose es primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  )
+posterior a ello, y es aquí el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
+
+## PASO 2 
+
+Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será un simple 
