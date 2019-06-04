@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    container_name: db_mysql
+    image: mariadb
+    volumes:
+      - /home/kdetony/bd:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_USER: centos
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: centos_db
+    ports:
+      - "3306:3306"
+  web:
+    container_name: web_apache
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - /home/docker/web:/var/www/html
