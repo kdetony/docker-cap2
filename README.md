@@ -8,4 +8,4 @@ Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un conten
 
 ## PASO 1 
 
->**docker-compose up -d **
+>**docker-compose up -d**
