@@ -15,4 +15,12 @@ posterior a ello, y es aquí el tremendo potencial que tiene, y es la sintaxis *
 
 ## PASO 2 
 
-Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será un simple 
+Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será un simple html5 responsive y un restore de una base de datos, aquí podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
+
+Para la web solo copiar los archivos al bind mount declarado, para la base de datos lo haremos de la sgt manera: 
+
+>**cat dump.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
+
+
+
+
