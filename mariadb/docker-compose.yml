@@ -1,32 +1,30 @@
 version: '3'
 services:
   db:
-    container_name: db_mysql
-    image: mariadb
+    container_name: db_maria
+    build: .
     volumes:
       - /home/kdetony/bd:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: centos
       MYSQL_PASSWORD: password
-      MYSQL_DATABASE: centos_db
+      MYSQL_DATABASE: db1
     ports:
       - "3306:3306"
     networks:
-      - app
+      - app1   
 
   web:
-    container_name: web_apache
-    build: .
+    container_name: web_apache_1
+    image: httpd
     ports:
       - "80:80"
     volumes:
-      - sg1:/var/www/html:rw
-    networks:
-     - app
+      - sg1:/var/www/html:ro
 
 networks:
-  app:
+  app1:
 
 volumes:
   sg1:
