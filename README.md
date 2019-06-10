@@ -85,3 +85,5 @@ Validamos ingresando la ip de http://HOST:8080 y/o http://HOST:8180
 Por último, vamos a crear usando un contenedor Portainer, que es un aplicativo visual para administrar contendores: 
 
 >docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock --name admindocker portainer/portainer
+
+Cusi-Cusa !!!
