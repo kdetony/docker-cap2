@@ -1,21 +1,21 @@
 # Docker-Practico
 
-Este espacio es para explicar de forma prÃ¡ctica como entender los conceptos de imagen, contenedor, red y volumen, de la mano con Dockerfile y docker-compose, que nos ayudarÃ¡n a desplegar la infraestructura necesaria relacionada con contenedores.
+Este espacio es para explicar de forma practica como entender los conceptos de imagen, contenedor, red y volumen, de la mano con Dockerfile y docker-compose, que nos ayudaran a desplegar la infraestructura necesaria relacionada con contenedores.
 
-Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un contenedor, y si la imagen no la tenemos descargada, realizarÃ¡ **docker pull** internamente para realizar esta acciÃ³n, pero, es muy tedioso aÃºn para un sysadmin experimentado estar digitando los comandos en consola, por ello, recurrimos por usar **Dockerfile** quien nos ayudarÃ¡ a *personalizar una imagen* a nuestra necesidad, y encima podemos tener versiones aka TAG por cada cambio que realicemos.
+Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un contenedor, y si la imagen no la tenemos descargada, realizara **docker pull** internamente para realizar esta accion, pero, es muy tedioso aun para un sysadmin experimentado estar digitando los comandos en consola, por ello, recurrimos por usar **Dockerfile** quien nos ayudara¡ a *personalizar una imagen* a nuestra necesidad, y encima podemos tener versiones aka TAG por cada cambio que realicemos.
 
-**docker-compose** esta relacionado con los contenedores contratamente, ya que en el archivo de extension YAML, podemos asociar imagenes ,puertos, volumenes de forma mÃ¡s intuitiva y personalizada. Con esta introducciÃ³n vamos a como iniciar esto: 
+**docker-compose** esta relacionado con los contenedores contratamente, ya que en el archivo de extension YAML, podemos asociar imagenes ,puertos, volumenes de forma mas intuitiva y personalizada. Con esta introduccion vamos a como iniciar esto: 
 
 ## PASO 1 
 
 >**docker-compose up -d**
 
-Lo que realizarÃ¡ docker compose es primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  )
-posterior a ello, y es aquÃ­ el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
+Lo que realizara docker compose es primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  )
+posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
 
 ## PASO 2 
 
-Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, serÃ¡ un simple html5 responsive y un restore de una base de datos, aquÃ­ podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
+Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, sera¡ un simple html5 responsive y un restore de una base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
 
 Para la web solo copiar los archivos al bind mount declarado, para la base de datos lo haremos de la sgt manera: 
 
@@ -33,7 +33,7 @@ A que se debe este mensaje?
 
 Recordemos que el volumen en docker-compose fue declarado como RO (Red-Only), por ende no tenemos permisos de escritura en el contenedor y hacia el, una forma de solucionarlo, es copiar la data desde el HOST hacia el volumen creado, en este caso: *docker_practica_sg1*
 
-La segunda opciÃ³n es cambiar en docker-compose de RO a RW.
+La segunda opcion es cambiar en docker-compose de RO a RW.
 
 volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
 
@@ -41,12 +41,12 @@ volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
 
 ## PASO 4
 
-Planteo lo sgt, como hariamos para instalar Wordpress en un contenedor? ... me adelanto, NO NO NO y NO no podemos instalar apache, mysql, php, wordpress en un contendor, ya que este esquema es para una Maquina Fisica o Virtual, en contenedores debemos separar todas las aplicaciones y/o servicios en unicos contenedores... ok? , entonces, ahora, vamos a realizar esta instalaciÃ³n de Wordpress de esta manera: 1 contenedor para wordpress ( y todas sus dependencias ) - 1 contenedor para la base de datos.
+Planteo lo sgt, como hariamos para instalar Wordpress en un contenedor? ... me adelanto, NO NO NO y NO no podemos instalar apache, mysql, php, wordpress en un contendor, ya que este esquema es para una Maquina Fisica o Virtual, en contenedores debemos separar todas las aplicaciones y/o servicios en unicos contenedores... ok? , entonces, ahora, vamos a realizar esta instalacion de Wordpress de esta manera: 1 contenedor para wordpress ( y todas sus dependencias ) - 1 contenedor para la base de datos.
 
 Obs.
-En la carpeta wordpress, encontrarÃ¡ el archivo **docker-compose.yml** el cual abarca la instalaciÃ³n de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado.
+En la carpeta wordpress, encontrara¡ el archivo **docker-compose.yml** el cual abarca la instalacion de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado.
 
-Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se puede seguir usandolo sin problema, y serÃ­a asÃ­:
+Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se puede seguir usandolo sin problema, y sera asi:
 
 #### Instalando Mysql version 5.7
 
@@ -58,7 +58,7 @@ Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se pued
 
 >docker run -dit --name wordpress --link **dbw-mysql**:mysql -p 8380:80 wordpress
 
-Abrimos un browser colocando la ip del HOST en el puerto 8380 y procedemos a realizar la instalaciÃ³n.
+Abrimos un browser colocando la ip del HOST en el puerto 8380 y procedemos a realizar la instalacion.
 
 **OBS.**
 Debemos colocar el nombre del contenedor de mysql, para este ejm. *dbw-mysql*
