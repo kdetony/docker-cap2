@@ -6,14 +6,14 @@ Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un conten
 
 **docker-compose** esta relacionado con los contenedores contratamente, ya que en el archivo de extension YAML, podemos asociar imagenes ,puertos, volumenes de forma mas intuitiva y personalizada. Con esta introduccion vamos a como iniciar esto: 
 
-## PASO 1 
+## EJEMPLO 1 
 
 >**docker-compose up -d**
 
 Lo que realizara docker compose es primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  )
 posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
 
-## PASO 2 
+## EJEMPLO 2 
 
 Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, sera¡ un simple html5 responsive y un restore de una base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
 
@@ -21,7 +21,7 @@ Para la web solo copiar los archivos al bind mount declarado, para la base de da
 
 >**cat dump.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
 
-## PASO 3
+## EJEMPLO 3
 
 Vamos a copiar ahora nuestra web ( data ) a nuestro contenedor, para ello vamos a usar el comando:
 
@@ -39,7 +39,7 @@ volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
 
 >docker cp web/. web_apache:/var/www/html
 
-## PASO 4
+## EJEMPLO 4
 
 Planteo lo sgt, como hariamos para instalar Wordpress en un contenedor? ... me adelanto, NO NO NO y NO no podemos instalar apache, mysql, php, wordpress en un contendor, ya que este esquema es para una Maquina Fisica o Virtual, en contenedores debemos separar todas las aplicaciones y/o servicios en unicos contenedores... ok? , entonces, ahora, vamos a realizar esta instalacion de Wordpress de esta manera: 1 contenedor para wordpress ( y todas sus dependencias ) - 1 contenedor para la base de datos.
 
@@ -64,7 +64,7 @@ Abrimos un browser colocando la ip del HOST en el puerto 8380 y procedemos a rea
 Debemos colocar el nombre del contenedor de mysql, para este ejm. *dbw-mysql*
 
 
-## PASO 5
+## EJEMPLO 5
 
 Demos un poco mas de complejidad a nuestra arquitectura actual, para ello, vamos a crear un proxy reverse con Nginx (solo para el puerto 80, para el puerto 443, es otro precio :p, no es broma! lo iré colocando mas adelante, como un *paso6*.
 En el archivo **docker-compose.yml** tenemos la creación del proxy reverso, asi como la creación de un contenedor web ( apache ), el proxy accederá al aplicativo por el puerto 8080, 8180 (este será para el otro contenedor web que crearemos a mano). 
