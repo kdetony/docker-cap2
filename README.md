@@ -15,9 +15,9 @@ posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **
 
 ## EJEMPLO 2 
 
-Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, sera¡ un simple html5 responsive y un restore de una base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
+Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será cambiar el index.html y un restore de una base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
 
-Para la web solo copiar los archivos al bind mount declarado, para la base de datos lo haremos de la sgt manera: 
+Para la web *solo crear el index* y copiarlo en su Mount , para la base de datos lo haremos de la sgt manera: 
 
 >**cat dump.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
 
@@ -44,7 +44,7 @@ volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
 Planteo lo sgt, como hariamos para instalar Wordpress en un contenedor? ... me adelanto, NO NO NO y NO no podemos instalar apache, mysql, php, wordpress en un contendor, ya que este esquema es para una Maquina Fisica o Virtual, en contenedores debemos separar todas las aplicaciones y/o servicios en unicos contenedores... ok? , entonces, ahora, vamos a realizar esta instalacion de Wordpress de esta manera: 1 contenedor para wordpress ( y todas sus dependencias ) - 1 contenedor para la base de datos.
 
 Obs.
-En la carpeta wordpress, encontrara¡ el archivo **docker-compose.yml** el cual abarca la instalacion de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado.
+En la carpeta wordpress, encontrarás el archivo **docker-compose.yml** el cual abarca la instalacion de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado.
 
 Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se puede seguir usandolo sin problema, y sera asi:
 
