@@ -1,4 +1,4 @@
-# Docker-Practico
+# Docker Intermedio
 
 Este espacio es para explicar de forma practica como entender los conceptos de imagen, contenedor, red y volumen, de la mano con Dockerfile y docker-compose, que nos ayudaran a desplegar la infraestructura necesaria relacionada con contenedores.
 
