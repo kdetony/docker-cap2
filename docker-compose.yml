@@ -4,7 +4,7 @@ services:
     container_name: db_mysql
     image: mariadb
     volumes:
-      - /home/kdetony/bd:/var/lib/mysql
+      - /tmp/bd:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_USER: centos
