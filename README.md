@@ -72,7 +72,7 @@ Debemos colocar el nombre del contenedor de mysql, para este ejm. *dbw-mysql*
 ## EJEMPLO 5
 
 Demos un poco mas de complejidad a nuestra arquitectura actual, para ello, vamos a crear un proxy reverse con Nginx (solo para el puerto 80, para el puerto 443, es otro precio :p, no es broma! lo iré colocando mas adelante, como un *paso6*.
-En el archivo **docker-compose.yml** tenemos la creación del proxy reverso, asi como la creación de un contenedor web ( apache ), el proxy accederá al aplicativo por el puerto 8080, 8180 (este será para el otro contenedor web que crearemos a mano). 
+En el archivo **docker-compose.yml** tenemos la creación del proxy reverso, asi como la creación de un contenedor web ( apache )y un conenedor web nginx, el proxy accederá a los aplicativos por el puerto 8080, 8081.
 
 Antes de crear los contenedores, vamos a crear la sgt red: **docker network create nginx_redproxy**
 
