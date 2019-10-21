@@ -78,11 +78,7 @@ Antes de crear los contenedores, vamos a crear la sgt red: **docker network crea
 
 Para inicializar el contenedor proxy: >docker compose up -d 
 
-Ahora, nos  queda solo crear el contenedor web adicional: 
-
->docker run -dit --net nginx_redproxy --name web100 httpd
-
-Validamos ingresando la ip de http://HOST:8080 y/o http://HOST:8180
+Validamos ingresando la ip de http://HOST:8080 y/o http://HOST:8081
 
 
 ## LA YAPA 
