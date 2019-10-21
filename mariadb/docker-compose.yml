@@ -2,7 +2,7 @@ version: '3'
 services:
   db:
     container_name: db_maria
-    build: .
+    image: mariadb
     volumes:
       - /home/kdetony/bd:/var/lib/mysql
     environment:

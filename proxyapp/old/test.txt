@@ -1,0 +1,8 @@
+services:
+  coreserver:
+    image: coreserver
+    build:
+      context: .
+      dockerfile: CoreServer/Dockerfile
+    expose:
+      - "5000"

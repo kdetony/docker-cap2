@@ -12,13 +12,20 @@ services:
     networks:
       - redproxy
 
-  web:
-    image: httpd
-    container_name: production
+  app1:
+    build: .
+    container_name: web101
     expose:
       - "80"
     networks: 
      - redproxy
 
+  app2:
+    image: httpd
+    container_name: web100
+    expose:
+      - "80"
+    networks:
+      - redproxy
 networks:
   redproxy:
