@@ -24,28 +24,42 @@ posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **
 
 OBS.
 
-Al acceder a la Web, veremos un Forbiden ( 403 ), entrar al contenedor y crear un **index.html**
+* Para visualizar la web, vamos a ingresar via un browser, colocando la IP Publica.
+
+* Si al acceder a la Web, nos encontramos con un Forbiden ( 403 ), debemos entrar al contenedor y crear un **index.html**
+
+> docker exec -it ID_CONTAINER bash
 
 
 ## EJEMPLO 2 
 
-Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será cambiar el index.html y un restore de una base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
+Vamos ahora a colocar contenido en nuestro **VOLUME**, para este caso, será cambiar el *index.html* relacionado a nuestro contenedor WEB y haremos un restore para la base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
 
 Para la web *solo crear el index* y copiarlo en su Mount , para la base de datos lo haremos de la sgt manera: 
 
->**cat bd.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
+Nos ubicamos en la carpeta **mariadb** 
+
+>**cat bd.sql | docker exec -i db_mysql  mysql -uroot -ppassword centos_db**
 
 ## EJEMPLO 3
 
+Antes de realizar este ejemplo, vamos a modificar nuestro docker-compose, en esta linea:
+
+**sg1:/var/www/html:ro**
+
+Y volvemos a ejecutar:
+
+> docker-compose up -d
+
 Vamos a copiar ahora nuestra web ( data ) a nuestro contenedor, para ello vamos a usar el comando:
 
->**docker cp web/.  web_apache:/var/www/html 
+> **docker cp web/.  web_apache:/var/www/html**
 
 A que se debe este mensaje?
 
 **Error response from daemon: mounted volume is marked read-only**
 
-Recordemos que el volumen en docker-compose fue declarado como RO (Red-Only), por ende no tenemos permisos de escritura en el contenedor y hacia el, una forma de solucionarlo, es copiar la data desde el HOST hacia el volumen creado, en este caso: *docker_practica_sg1*
+Recordemos que el volumen en **docker-compose** fue declarado como RO (Red-Only), por ende no tenemos permisos de escritura en el contenedor y hacia el, una forma de solucionarlo, es copiar la data desde el HOST hacia el volumen creado.
 
 La segunda opcion es cambiar en docker-compose de RO a RW.
 
@@ -64,9 +78,9 @@ Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se pued
 
 #### Instalando Mysql version 5.7
 
->docker volume create red_wordpress
+> docker volume create red_wordpress
 
->docker run -dit -v /home/kdetony/mysql:/var/lib/mysql --net red_wordpress --name **dbw-mysql** -e MYSQL_DATABASE=wordpress -e MYSQL_ROOT_PASSWORD=password  mysql:5.7
+> docker run -dit -v /home/kdetony/mysql:/var/lib/mysql --net red_wordpress --name **dbw-mysql** -e MYSQL_DATABASE=wordpress -e MYSQL_ROOT_PASSWORD=password  mysql:5.7
 
 #### Realizando el Link entre contenedores 
 
