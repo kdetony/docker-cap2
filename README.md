@@ -28,7 +28,7 @@ Vamos ahora a colocar contenido en nuestro VOLUME, para este caso, será cambiar
 
 Para la web *solo crear el index* y copiarlo en su Mount , para la base de datos lo haremos de la sgt manera: 
 
->**cat dump.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
+>**cat bd.sql | docker exec -i mysql-container mysql -uroot -ppassword db_name**
 
 ## EJEMPLO 3
 
