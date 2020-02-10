@@ -13,7 +13,7 @@ Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un conten
 ## OBS
 Para trabajar con este laboratorio, vamos a clonar todo el repositorio: 
 
-> git clone 
+> git clone https://github.com/kdetony/docker-cap2.git
 
 ## EJEMPLO 1 
 
