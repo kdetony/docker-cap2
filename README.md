@@ -10,6 +10,11 @@ Tengamos en cuenta lo siguiente, **docker run** lo que hace es iniciar un conten
 
 **docker-compose** esta relacionado con los contenedores contratamente, ya que en el archivo de extension YAML, podemos asociar imagenes ,puertos, volumenes de forma mas intuitiva y personalizada. Con esta introduccion vamos a como iniciar esto: 
 
+## OBS
+Para trabajar con este laboratorio, vamos a clonar todo el repositorio: 
+
+> git clone 
+
 ## EJEMPLO 1 
 
 >**docker-compose up -d**
