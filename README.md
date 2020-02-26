@@ -15,31 +15,47 @@ Para trabajar con este laboratorio, vamos a clonar todo el repositorio:
 
 > git clone https://github.com/kdetony/docker-cap2.git
 
-## EJEMPLO 1 
+## EJEMPLO1: Despliegue contenedor web y database
+
+En la carpeta **docker-cap2**, tenemos el fichero *docker-compose.yml* quien orquestará toda la creacion de contenedores que necesitemos, para lo cual vamos a ejecutar: 
 
 >**docker-compose up -d**
 
-Lo que realizara docker compose es primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  )
-posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
+Lo que realizara *docker-compose.yml* primero interpretar la version de la misma ( aqui un [Link](https://docs.docker.com/compose/compose-file/compose-versioning/) donde explica esta parte  ) posterior a ello, y es aqui el tremendo potencial que tiene, y es la sintaxis **build**, pues mediante docker-compose podemos indicarle que lea un Dockerfile, caso contrario podemos usar **image** para que pueda usar la imagen descargada en nuestro Host. La sintaxis **container_name** asigna un nombre a nuestro contenedor, **enviroment** sirve para setear las variables de entorno, para nuestro caso, passwd, user para mariadb, la sintaxis **volume** asigno el mismo al contendor.
 
-OBS.
+### OBS.
 
 * Para visualizar la web, vamos a ingresar via un browser, colocando la IP Publica.
 
 * Si al acceder a la Web, nos encontramos con un Forbiden ( 403 ), debemos entrar al contenedor y crear un **index.html**
 
 > docker exec -it ID_CONTAINER bash
+> touch index.html /var/Www/html/
 
 
-## EJEMPLO 2 
+## EJEMPLO2: Volumenes
 
-Vamos ahora a colocar contenido en nuestro **VOLUME**, para este caso, será cambiar el *index.html* relacionado a nuestro contenedor WEB y haremos un restore para la base de datos, aqui podemos hacerlo de forma manual y/o via dockerfile. Vamos a ejecutarlo manualmente: 
+Vamos ahora a colocar contenido en nuestro **VOLUME**, para este primer ejercicio, será cambiar el *index.html* relacionado a nuestro contenedor WEB y como segundo ejercicio, haremos un restore para la base de datos, aqui podemos hacerlo de forma manual y/o via Dockerfile. Vamos a ejecutarlo manualmente: 
 
-Para la web *solo crear el index* y copiarlo en su Mount , para la base de datos lo haremos de la sgt manera: 
+### EJERCICIO 1
+
+Para el contenedor web, *solo vamos a modificar el index.html*, para ello:
+
+> cd /var/lib/docker/volumes 
+
+> ls 
+
+Debemos identificar la carpeta de nombre: **docker-cap2_sg1**, es esta carpeta que se asocia al volume: **sg1** que creamos en el docker-compose.
+Dentro de esta carpeta, vamos a ver otra carpeta: *_data*, y dentro de ella se encuetra el archivo: **index.html**
+Lo que haremos es modificar el archivo, para ver reflejados los cambios en el contenedor.
+
+### EJERCICIO 2
+
+Para la base de datos, lo que haremos es un restore manual, para ello: 
 
 Nos ubicamos en la carpeta **mariadb** 
 
->**cat bd.sql | docker exec -i db_mysql  mysql -uroot -ppassword centos_db**
+> cat bd.sql | docker exec -i cnt_db  mysql -uroot -ppassword centos_db
 
 ## EJEMPLO 3
 
@@ -59,20 +75,24 @@ A que se debe este mensaje?
 
 **Error response from daemon: mounted volume is marked read-only**
 
-Recordemos que el volumen en **docker-compose** fue declarado como RO (Red-Only), por ende no tenemos permisos de escritura en el contenedor y hacia el, una forma de solucionarlo, es copiar la data desde el HOST hacia el volumen creado.
+Recordemos que el volumen **sg1** en **docker-compose** fue declarado como RO (Red-Only), por ende no tenemos permisos de escritura en el contenedor y hacia el, una forma de solucionarlo, es copiar la data desde el HOST hacia el volumen creado.
 
-La segunda opcion es cambiar en docker-compose de RO a RW.
+La segunda opcion es cambiar en *docker-compose* de RO a RW y /var/lib/docker/volumeses lo que vamos a realizar ( regresamos a como esta inicialmente )
 
-volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
+Volvemos a lanzar: **docker-compose up -d**  y ejecutamos:
 
->docker cp web/. web_apache:/var/www/html
+> docker cp web/. web_apache:/var/www/html
 
 ## EJEMPLO 4
 
 Planteo lo sgt, como hariamos para instalar Wordpress en un contenedor? ... me adelanto, NO NO NO y NO no podemos instalar apache, mysql, php, wordpress en un contendor, ya que este esquema es para una Maquina Fisica o Virtual, en contenedores debemos separar todas las aplicaciones y/o servicios en unicos contenedores... ok? , entonces, ahora, vamos a realizar esta instalacion de Wordpress de esta manera: 1 contenedor para wordpress ( y todas sus dependencias ) - 1 contenedor para la base de datos.
 
 Obs.
-En la carpeta wordpress, encontrarás el archivo **docker-compose.yml** el cual abarca la instalacion de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado.
+En la carpeta wordpress, encontrarás el archivo **docker-compose.yml** el cual abarca la instalacion de Docker como hemos comentado, y es la forma "actual" que se usa para "linkear" contenedores o "enlazarlos", ya que el comando linked esta deprecado pero aun se puede user, *teniendo en cuenta la version de 2.x/3 de docker-compose.*
+
+Para ejecutarlo, debemos ubicarnos en la carpeta: *wordpress*
+
+> docker-compose up -d
 
 Entonces, lo que vamos hacer es usando este comando "deprecado" ojo! aun se puede seguir usandolo sin problema, y sera asi:
 
@@ -99,7 +119,9 @@ En el archivo **docker-compose.yml** tenemos la creación del proxy reverso, asi
 
 Antes de crear los contenedores, vamos a crear la sgt red: **docker network create nginx_redproxy**
 
-Para inicializar el contenedor proxy: >docker compose up -d 
+Para inicializar los contenedores, nos ubicamos en la carpeta *proxyapp*
+
+> docker compose up -d 
 
 Validamos ingresando la ip de http://HOST:8080 y/o http://HOST:8081
 
