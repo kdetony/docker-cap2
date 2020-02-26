@@ -1,13 +1,13 @@
-version: '3'
+version: '3.5'
 
 services:
    wordpress:
-     container_name: w1
+     container_name: cnt_wdp
      depends_on:
        - db
      image: wordpress:latest
      volumes:
-       - files:/var/www/html
+       - sgf:/var/www/html
      ports:
        - "8089:80"
      networks:
@@ -19,7 +19,7 @@ services:
        WORDPRESS_DB_PASSWORD: password
 
    db:
-     container_name: db1
+     container_name: cnt_wdpdb
      image: mysql:5.7
      volumes:
        - db_data:/var/lib/mysql
@@ -32,11 +32,14 @@ services:
      networks:
        - inet 
      volumes:
-       - data:/var/lib/mysql:rw
+       - sg_data:/var/lib/mysql:rw
 
 volumes:
-    files:
-    data:
+    sgf:
+     name: sgf       
+    sg_data:
+     name: sg_data
 
 networks:
     inet:
+     name: inet      

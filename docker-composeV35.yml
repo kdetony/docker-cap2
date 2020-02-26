@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   db:
     container_name: cnt_db
@@ -22,12 +22,14 @@ services:
       - "80:80"
     volumes:
       - sg1:/var/www/html:rw
-      - ./index.html:/var/www/html/index.html   
+      - ./index.html:/var/www/html/index.html  
     networks:
      - app
 
 networks:
   app:
+   name: sapp
 
 volumes:
   sg1:
+        

@@ -1,8 +1,8 @@
-version: '3'
+version: '3.5'
 services:
   nginx: 
     image: nginx:latest
-    container_name: proxyw
+    container_name: cnt_proxy
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
     ports:
@@ -14,7 +14,7 @@ services:
 
   app1:
     build: .
-    container_name: web101
+    container_name: cnt_web01
     expose:
       - "80"
     networks: 
@@ -22,10 +22,11 @@ services:
 
   app2:
     image: httpd
-    container_name: web100
+    container_name: cnt_web02
     expose:
       - "80"
     networks:
       - redproxy
 networks:
   redproxy:
+    name: redproxy
